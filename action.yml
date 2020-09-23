@@ -1,5 +1,5 @@
 name: "Google Cloud SQL Proxy"
-description: "Start Google Cloud SQL Proxy"
+description: "Start Google CloudSQL Proxy"
 
 branding:
   icon: "database"
