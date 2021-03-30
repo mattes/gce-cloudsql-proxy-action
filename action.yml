@@ -29,7 +29,7 @@ runs:
       run: |
         
         # Install wait-for-it
-        apt update && apt install -y wait-for-it
+        apt-get update && apt-get install -y wait-for-it
 
         # write google application credentials to a temporary file to be used inside the container
         mkdir -p /tmp/gce-cloudsql-proxy
