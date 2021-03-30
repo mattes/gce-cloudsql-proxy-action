@@ -49,7 +49,7 @@ runs:
         isready=0
         for i in {1..10}; do
           echo "Wait for connections to be ready ... $i/10"
-          (wait-for-it --quiet --timeout 3 --host localhost --port ${{ inputs.port }} || exit $?) && true # escape bash's pipefail
+          (wait-for-it --quiet --timeout 3 --host 127.0.0.1 --port ${{ inputs.port }} || exit $?) && true # escape bash's pipefail
           isready=$?
           if [[ $isready -eq 0 ]]; then
             break
