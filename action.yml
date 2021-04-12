@@ -27,12 +27,6 @@ runs:
     - name: Start Google Cloud SQL Proxy
       shell: bash
       run: |
-        # fail if pg_isready is not installed
-        if ! command -v pg_isready &>/dev/null; then
-          echo "pg_isready is not installed"
-          exit 5 
-        fi
-
         # write google application credentials to a temporary file to be used inside the container
         mkdir -p /tmp/gce-cloudsql-proxy
         echo '${{ inputs.creds }}' > /tmp/gce-cloudsql-proxy/key.json
@@ -51,7 +45,7 @@ runs:
         isready=0
         for i in {1..10}; do
           echo "Wait for connections to be ready ... $i/10"
-          (pg_isready --quiet --timeout 3 --host localhost --port ${{ inputs.port }} || exit $?) && true # escape bash's pipefail
+          (${{ github.action_path }}/wait-for-it.sh --quiet --timeout=3 --host=127.0.0.1 --port=${{ inputs.port }} || exit $?) && true # escape bash's pipefail
           isready=$?
           if [[ $isready -eq 0 ]]; then
             break
@@ -66,4 +60,3 @@ runs:
         if [[ $isready -ne 0 ]]; then
           exit $isready 
         fi
-
