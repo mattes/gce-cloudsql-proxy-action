@@ -19,7 +19,7 @@ inputs:
   proxy_version:
     description: "CloudSQL Proxy Version"
     required: false
-    default: 1.18.0
+    default: 1.21.0
 
 runs:
   using: "composite"
